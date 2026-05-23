@@ -1,0 +1,1 @@
+"""easyGo AI services package."""

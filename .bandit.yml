@@ -1,0 +1,11 @@
+model_name: .Bandit.Yml
+version: 1.0
+description: Configuration for .Bandit.Yml model.
+hyperparameters:
+  learning_rate: 0.01
+  max_depth: 6
+  n_estimators: 100
+features:
+  - feature_1
+  - feature_2
+  - feature_3

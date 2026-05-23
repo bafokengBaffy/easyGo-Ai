@@ -1,0 +1,11 @@
+model_name: Route Optimization
+version: 1.0
+description: Configuration for Route Optimization model.
+hyperparameters:
+  learning_rate: 0.01
+  max_depth: 6
+  n_estimators: 100
+features:
+  - feature_1
+  - feature_2
+  - feature_3
