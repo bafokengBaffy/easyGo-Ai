@@ -1,0 +1,74 @@
+# Driver Verification Service Configuration
+# @version 1.0.0
+
+# Face Recognition Settings
+face_recognition:
+  model_type: hybrid  # hybrid, cloud, local
+  confidence_threshold: 0.85
+  liveness_threshold: 0.70
+  max_image_size_mb: 10
+  min_face_size: 200
+  cache_ttl_seconds: 3600
+
+# Cloud Service Configuration
+cloud_services:
+  huggingface_enabled: true
+  huggingface_token: ${HUGGINGFACE_TOKEN}
+  aws_enabled: false
+  aws_region: us-east-1
+  google_enabled: false
+  
+  hf_models:
+    face_detection: huggingface/face-detection
+    face_embedding: sentence-transformers/all-MiniLM-L6-v2
+    ocr: microsoft/trocr-large-printed
+
+# Document Verification Settings
+document_verification:
+  use_google_vision: true
+  use_tesseract: true
+  max_document_size_mb: 10
+  supported_formats:
+    - image/jpeg
+    - image/png
+    - image/jpg
+    - image/webp
+
+# OCR Settings
+ocr:
+  tessdata_path: /usr/share/tesseract-ocr/tessdata
+  language: eng
+  config: --psm 6
+
+# Validation Thresholds
+validation:
+  minimum_age: 18
+  maximum_age: 70
+  license_expiry_days: 30  # Alert days before expiry
+  min_confidence_score: 50
+
+# Security Settings
+security:
+  encryption_enabled: true
+  encryption_key: ${DOCUMENT_ENCRYPTION_KEY}
+  logging_level: INFO
+  audit_logging: true
+
+# Performance Settings
+performance:
+  max_concurrent_requests: 100
+  request_timeout_seconds: 30
+  max_retries: 3
+  retry_delay_seconds: 1
+  queue_size: 1000
+
+# Monitoring Settings
+monitoring:
+  enable_metrics: true
+  enable_tracing: true
+  metrics_endpoint: /metrics
+  health_check_endpoint: /health
+  alert_thresholds:
+    error_rate: 5  # percentage
+    latency_ms: 3000
+    queue_length: 100

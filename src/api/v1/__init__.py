@@ -20,6 +20,7 @@ from .endpoints import (
     route_optimize,
     sentiment,
     surge_pricing,
+    verification,
     version,
 )
 
@@ -44,4 +45,5 @@ api_router.include_router(risk_score.router)
 api_router.include_router(route_optimize.router)
 api_router.include_router(sentiment.router)
 api_router.include_router(surge_pricing.router)
+api_router.include_router(verification.router)
 api_router.include_router(version.router)
