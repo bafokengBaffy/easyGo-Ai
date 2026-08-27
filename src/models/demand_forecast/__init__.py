@@ -1,4 +1,6 @@
-"""Demand forecast model package."""from .feature_engineering import DemandForecastFeatureEngineering
+"""Demand forecast model package."""
+
+from .feature_engineering import DemandForecastFeatureEngineering
 from .model import DemandForecastModel
 from .predictor import DemandForecastPredictor
 from .trainer import DemandForecastTrainer

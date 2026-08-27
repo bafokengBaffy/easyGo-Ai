@@ -75,7 +75,7 @@ class ModelStore:
             )
 
         if missing:
-            raise RuntimeError(f"Missing model files: {missing}")
+            logger.warning("missing_model_files", extra={"files": missing})
 
     def model(self, name: str) -> Any | None:
         return self._models.get(name)

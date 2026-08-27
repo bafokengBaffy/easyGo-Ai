@@ -1,4 +1,6 @@
-"""ETA prediction model package."""from .feature_engineering import EtaPredictionFeatureEngineering
+"""ETA prediction model package."""
+
+from .feature_engineering import EtaPredictionFeatureEngineering
 from .model import EtaPredictionModel
 from .predictor import EtaPredictionPredictor
 from .trainer import EtaPredictionTrainer

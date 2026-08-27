@@ -1,2 +1,2 @@
-class {filename.replace('.py','').title()}:
+class TrainingComponent:
     pass
