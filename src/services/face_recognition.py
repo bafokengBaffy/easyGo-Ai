@@ -648,15 +648,17 @@ class FaceRecognitionService:
             )
     
     def _detect_liveness_cloud(self, image_data: bytes, correlation_id: str) -> LivenessDetectionResult:
-        """Detect liveness using cloud API"""
-        # For now, return a reasonable result
-        # In production, you'd use a specialized liveness API
+        """Fail closed when no configured liveness provider is available.
+
+        A single still image cannot prove liveness. The API must be backed by
+        a real liveness provider or the verification must remain pending.
+        """
         return LivenessDetectionResult(
-            is_live=True,
-            confidence_score=85.0,
-            liveness_score=0.85,
-            spoof_score=0.15,
-            method='cloud_simulated',
+            is_live=False,
+            confidence_score=0.0,
+            liveness_score=0.0,
+            spoof_score=1.0,
+            method='provider_unavailable',
             processing_time_ms=0,
             correlation_id=correlation_id
         )

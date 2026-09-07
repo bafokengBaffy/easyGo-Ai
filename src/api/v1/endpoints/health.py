@@ -3,6 +3,10 @@ from ..schemas import PredictionRequest, PredictionResponse
 
 router = APIRouter(prefix='/health', tags=['health'])
 
+@router.get('/')
+async def health_check():
+    return {'status': 'ok', 'service': 'easygo-ai', 'version': '1.0.0'}
+
 @router.post('/', response_model=PredictionResponse)
 async def handle(request: PredictionRequest):
     return PredictionResponse(

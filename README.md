@@ -20,3 +20,9 @@ pip install -r requirements.txt
 ```bash
 uvicorn src.api.app:app --host 0.0.0.0 --port 8000
 ```
+
+The web backend calls this service server-to-server through `AI_SERVICE_URL`.
+Set `AI_SERVICE_API_KEY` in both services to enable the optional service-key check.
+For direct browser tooling only, set `AI_CORS_ORIGINS` to a comma-separated list
+of trusted origins. Production web and mobile clients should use the web backend
+gateway at `/api/v1/ai` instead of exposing the AI service directly.

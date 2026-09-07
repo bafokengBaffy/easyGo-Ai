@@ -1,6 +1,8 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi import HTTPException
+import os
 import logging
 import time
 
@@ -8,10 +10,11 @@ request_ids: dict[str, str] = {}
 logger = logging.getLogger("easygo.ai.requests")
 
 def configure_middleware(app: FastAPI) -> None:
+    configured_origins = [origin.strip() for origin in os.getenv("AI_CORS_ORIGINS", "").split(",") if origin.strip()]
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
-        allow_credentials=True,
+        allow_origins=configured_origins or ["*"],
+        allow_credentials=bool(configured_origins),
         allow_methods=["*"],
         allow_headers=["*"],
     )
@@ -21,6 +24,10 @@ def configure_middleware(app: FastAPI) -> None:
         started_at = time.perf_counter()
         request_id = request.headers.get("X-Request-ID", "unknown")
         request.state.request_id = request_id
+        configured_key = os.getenv("AI_SERVICE_API_KEY", "").strip()
+        provided_key = request.headers.get("X-AI-Service-Key", "")
+        if configured_key and provided_key != configured_key:
+            return JSONResponse(status_code=401, content={"detail": "Invalid AI service key"})
         try:
             response = await call_next(request)
         except Exception:
